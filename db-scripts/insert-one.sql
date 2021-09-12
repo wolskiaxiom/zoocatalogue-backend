@@ -1,0 +1,2 @@
+INSERT INTO animals(id,animal,name,price,image_url,in_stock,fast_delivery,ratings)
+VALUES (1,'Skye Terrier','Small Frozen Computer',524.00,'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/26164828/Skye-Terrier-standing-outdoors-in-profile.jpg',2,true,1);
