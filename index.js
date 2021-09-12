@@ -48,6 +48,16 @@ app.get('/stoplistening', (req, res) => {
     server.close()
 })
 
+app.get('/getallanimals', ((req, res) => {
+    let sql = 'SELECT * FROM animals;'
+    db.query(sql, (err, result) => {
+        if(err) {
+            throw err;
+        }
+        res.send(result)
+    })
+}))
+
 
 var server = app.listen('3333', () => {
     console.log('Server started!')
