@@ -12,12 +12,23 @@ create TABLE animals(
 
 drop table if exists orders;
 create TABLE orders(
-   id               INTEGER  NOT NULL PRIMARY KEY
-  ,animal_id        INTEGER NOT NULL
-  ,num_animals        INTEGER NOT NULL
+   id               INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY
+  ,customer_email   VARCHAR(200) NOT NULL
+  ,customer_nick   VARCHAR(200) NOT NULL
+  ,customer_address1 VARCHAR(1000) NOT NULL
+  ,customer_address2 VARCHAR(1000) NOT NULL
+  ,customer_city VARCHAR(1000) NOT NULL
+  ,customer_zipcode VARCHAR(1000) NOT NULL
   ,total_price      NUMERIC(10,5) NOT NULL
-  ,customer_address VARCHAR(1000) NOT NULL
   ,comments         VARCHAR(1000)  NOT NULL
+);
+
+drop table if exists order_items;
+create TABLE order_items(
+   id               INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY
+  ,order_id         INTEGER NOT NULL
+  ,item_id          INTEGER NOT NULL
+  ,items_num        INTEGER NOT NULL
 );
 
 insert into animals(id,animal,name,price,image_url,in_stock,fast_delivery,ratings) values (1,'Skye Terrier','Small Frozen Computer',524.00,'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/26164828/Skye-Terrier-standing-outdoors-in-profile.jpg',2,'true',1);
