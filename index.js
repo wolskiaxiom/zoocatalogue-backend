@@ -34,6 +34,8 @@ app.use((req, res, next) => {
     res.append('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
+app.use(express.json());
+app.use(express.text());
 //Create Database
 app.get('/createdb', (req, res) => {
     let sql = 'CREATE DATABASE nodemysql'
@@ -63,6 +65,36 @@ app.get('/getallanimals', ((req, res) => {
         res.send(result)
     })
 }))
+
+app.post('/order', ((req, res) => {
+    let order = req.body;
+    db.query('INSERT INTO orders SET ?', {
+        customer_email: order.customer_email,
+        customer_nick: order.customer_nick,
+        customer_address1: order.customer_address1,
+        customer_address2: order.customer_address2,
+        customer_city: order.customer_city,
+        customer_zipcode: order.customer_zipcode,
+        total_price: order.total_price,
+        comments: order.comments
+    }, (err, result, fields) => {
+        if (err) throw err;
+        orderItems = order.order_items;
+        let orderId = result.insertId;
+        orderItems.forEach((order_item) => {
+            db.query('INSERT INTO order_items SET ?', {
+                order_id: orderId,
+                item_id: order_item.item_id,
+                items_num: order_item.item_num
+            });
+            let filters = [order_item.item_num, order_item.item_id];
+            db.query('UPDATE animals set in_stock = in_stock - ? where id = ? ', filters, (err, result) => {
+                if (err) throw err;
+            })
+        })
+    } )
+    res.send(req.body);
+}));
 
 
 var server = app.listen('3333', () => {
