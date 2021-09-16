@@ -14,7 +14,7 @@ const db = mysql.createConnection({
 
 // Connect to MySql
 db.connect(err => {
-    if(err) {
+    if (err) {
         throw err
     }
     console.log('MySQL connected!')
@@ -36,11 +36,12 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 app.use(express.text());
+
 //Create Database
 app.get('/createdb', (req, res) => {
     let sql = 'CREATE DATABASE nodemysql'
     db.query(sql, (err) => {
-        if(err) {
+        if (err) {
             throw err;
         }
         res.send("Database created!")
@@ -59,7 +60,7 @@ app.get('/stoplistening', (req, res) => {
 app.get('/getallanimals', ((req, res) => {
     let sql = 'SELECT * FROM animals;'
     db.query(sql, (err, result) => {
-        if(err) {
+        if (err) {
             throw err;
         }
         res.send(result)
@@ -93,7 +94,7 @@ app.post('/order', ((req, res) => {
                 if (err) throw err;
             })
         })
-    } )
+    })
     res.send(req.body);
 }));
 
