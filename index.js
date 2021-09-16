@@ -1,7 +1,7 @@
 const express = require('express')
 const mysql = require('mysql')
 const fs = require('fs');
-const dataSql = fs.readFileSync('./db-scripts/another-full-drop.sql').toString()
+const dataSql = fs.readFileSync('./db-scripts/full-create-drop.sql').toString()
 
 // Create connectoin
 const db = mysql.createConnection({
@@ -68,6 +68,7 @@ app.get('/getallanimals', ((req, res) => {
 
 app.post('/order', ((req, res) => {
     let order = req.body;
+    console.log(req.body)
     db.query('INSERT INTO orders SET ?', {
         customer_email: order.customer_email,
         customer_nick: order.customer_nick,
